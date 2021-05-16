@@ -1,3 +1,5 @@
 # exclude everthing in data folder
 data/*
 reflection-report
+
+GeoAI2019Geoparser/*
