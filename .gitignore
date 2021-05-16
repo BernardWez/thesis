@@ -3,3 +3,5 @@ data/*
 reflection-report
 
 GeoAI2019Geoparser/*
+PretrainedModel/*
+GeoAI2019Geoparser/
