@@ -5,3 +5,5 @@ reflection-report
 GeoAI2019Geoparser/*
 PretrainedModel/*
 GeoAI2019Geoparser/
+
+.ipynb_checkpoints
