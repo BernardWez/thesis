@@ -7,3 +7,4 @@ PretrainedModel/*
 GeoAI2019Geoparser/
 
 .ipynb_checkpoints
+.vscode/settings.json
