@@ -1,2 +1,5 @@
 # exclude everthing in data folder
 .ipynb_checkpoints
+
+ner-multilingual-bert-fine-tuned/*
+test-ner/*
