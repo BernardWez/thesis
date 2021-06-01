@@ -3,3 +3,5 @@
 
 test-ner/*
 models/*
+
+utils/__pycache__/*
