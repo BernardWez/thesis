@@ -1,4 +1,5 @@
 import copy
+import json
 import re
 import xml.etree.ElementTree as et
 
@@ -65,9 +66,15 @@ def process_articles(root, filtered, file_path):
 
 def prepare_data(file_path, filtered, split, word_limit=2000):
 
-    root = load_file(file_path)
+    if 'DutchPolicyDocs' in file_path:
 
-    data = process_articles(root, filtered, file_path)
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+
+    else:
+        root = load_file(file_path)
+
+        data = process_articles(root, filtered, file_path)
 
     if split:
 
@@ -103,8 +110,6 @@ def split_article(entry, word_limit):
     s = entry['text']
     split_article = []
     position = 0
-
-    # stuff is still cool
 
     for idx in punc_indices_filtered:
 
