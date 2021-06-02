@@ -63,7 +63,7 @@ def process_articles(root, filtered, file_path):
     return data
 
 
-def prepare_data(file_path, filtered, split):
+def prepare_data(file_path, filtered, split, word_limit=2000):
 
     root = load_file(file_path)
 
@@ -72,7 +72,7 @@ def prepare_data(file_path, filtered, split):
     if split:
 
         data = [split for splits in [split_article(
-            entry) for entry in data] for split in splits]
+            entry, word_limit) for entry in data] for split in splits]
 
     # Clean white spaces
     data = [clean_whitespaces(i) for i in data]
@@ -83,7 +83,7 @@ def prepare_data(file_path, filtered, split):
     return data
 
 
-def split_article(entry):
+def split_article(entry, word_limit):
 
     # Get all punctuation indices
     punc_indices = set([m.start() for m in re.finditer('\.', entry['text'])])
@@ -121,7 +121,7 @@ def split_article(entry):
     component = ''
 
     for sentence in split_article:
-        if len(sentence) + len(component) < 2000:
+        if len(sentence) + len(component) < word_limit:
             component += sentence
         else:
             sub_components.append(component)
