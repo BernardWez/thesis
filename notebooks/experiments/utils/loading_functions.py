@@ -67,6 +67,8 @@ def process_articles(root, filtered, file_path):
 def prepare_data(file_path, filtered, split, word_limit=2000):
 
     if 'DutchPolicyDocs' in file_path:
+        # Splitting is not necessary for DPD
+        split = False
 
         with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
