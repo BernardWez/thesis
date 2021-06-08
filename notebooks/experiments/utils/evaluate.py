@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 
 
@@ -110,7 +109,6 @@ def evaluate_one_article_strict(gold_truth, prediction):
     fps, fns, tps = [], [], []
 
     while len(gold) > 0 and len(pred) > 0:
-
         # Check if the first two elements are the same
         if gold[0] == pred[0]:
             tp += 1
@@ -134,10 +132,10 @@ def evaluate_one_article_strict(gold_truth, prediction):
                 fps.append(element['text'])
                 pred.remove(element)
 
-    if len(gold) > 0:
-        fn += 1
-    elif len(pred) > 0:
-        fp += 1
+    if gold:
+        fn += len(gold)
+    elif pred:
+        fp += len(pred)
 
     return tp, fp, fn, fns, fps, tps
 
@@ -206,8 +204,8 @@ def evaluate_one_article_forgiving(gold_truth, prediction):
                 pred.remove(element)
 
     if gold:
-        fn += 1
+        fn += len(gold)
     elif pred:
-        fp += 1
+        fp += len(pred)
 
     return tp, fp, fn, fns, fps, tps
