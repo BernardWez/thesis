@@ -1,6 +1,6 @@
 # exclude everthing in data folder
 .ipynb_checkpoints
-.pkl
+**/*.pkl
 
 test-ner/*
 models/*
