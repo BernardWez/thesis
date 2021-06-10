@@ -134,8 +134,19 @@ def evaluate_one_article_strict(gold_truth, prediction):
 
     if gold:
         fn += len(gold)
+        # TODO: CHECK IF ADDED PARTS WORK AND TPS + FNS == annotations
+        # Added
+        for i in gold:
+            fns.append(gold[0]['text'])
+            gold.pop(0)
+        
     elif pred:
         fp += len(pred)
+        
+        # Added
+        for i in pred:
+            fns.append(pred[0]['text'])
+            pred.pop(0)
 
     return tp, fp, fn, fns, fps, tps
 
