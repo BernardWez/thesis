@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entries>
+   <entry>
+      <text>Dat is in Italië , Spanje of Engeland misschien geen probleem , maar volgens ' Der Kaiser ' in Duitsland wel.</text>
+      <toponyms>
+         <toponym>
+            <phrase>Italië</phrase>
+            <start>10</start>
+            <end>16</end>
+            <place>29.985984 -90.059179</place>
+         </toponym>
+         <toponym>
+            <phrase>Spanje</phrase>
+            <start>13</start>
+            <end>19</end>
+            <place>29.985984 -90.059179</place>
+         </toponym>
+         <toponym>
+            <phrase>Engeland</phrase>
+            <start>17</start>
+            <end>25</end>
+            <place>29.985984 -90.059179</place>
+         </toponym>
+         <toponym>
+            <phrase>Duitsland</phrase>
+            <start>75</start>
+            <end>84</end>
+            <place>29.985984 -90.059179</place>
+         </toponym>
+      </toponyms>
+   </entry>
+</entries>
