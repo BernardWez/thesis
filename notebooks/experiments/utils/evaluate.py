@@ -52,7 +52,8 @@ def store_results(model_name, dataset, mode, precision,
     results.to_pickle("../../../results/results.pkl")
 
 
-def run_evaluation(gold_truth_labels, predictions, mode, model_name, dataset, filtered):
+def run_evaluation(gold_truth_labels, predictions, mode,
+                   model_name, dataset, filtered):
     # Counts of true positives, false positives & false negatives
     tp, fp, fn = 0, 0, 0
 
@@ -84,8 +85,13 @@ def run_evaluation(gold_truth_labels, predictions, mode, model_name, dataset, fi
                             for entry in gold_truth_labels])
     accuracy = calc_accuracy(tp, total_annotations)
 
-    store_results(model_name, dataset, mode, precision,
-                  recall, f_score, accuracy, filtered)
+    overwrite = input('Do you want to overwrite results? (y/n)')
+
+    if overwrite == 'y':
+        store_results(model_name, dataset, mode, precision,
+                      recall, f_score, accuracy, filtered)
+    else:
+        print('Results not saved...')
 
     print(f'Evaluation mode: {mode}')
     print(f'fp: {fp} | tp: {tp} | fn: {fn}')
@@ -133,19 +139,15 @@ def evaluate_one_article_strict(gold_truth, prediction):
                 pred.remove(element)
 
     if gold:
-        fn += len(gold)
-        # TODO: CHECK IF ADDED PARTS WORK AND TPS + FNS == annotations
-        # Added
-        for i in gold:
+        for i in range(len(gold)):
+            fn += 1
             fns.append(gold[0]['text'])
             gold.pop(0)
-        
+
     elif pred:
-        fp += len(pred)
-        
-        # Added
-        for i in pred:
-            fns.append(pred[0]['text'])
+        for i in range(len(pred)):
+            fp += 1
+            fps.append(pred[0]['text'])
             pred.pop(0)
 
     return tp, fp, fn, fns, fps, tps
@@ -174,7 +176,7 @@ def evaluate_one_article_forgiving(gold_truth, prediction):
 
             # case 2: prediction is within gold annotation boundaries
             (pred[0]['start_pos'] >= gold[0]['start_pos']
-             and pred[0]['end_pos'] <= gold[0]['start_pos'])
+             and pred[0]['end_pos'] <= gold[0]['end_pos'])
 
             or
 
@@ -215,8 +217,15 @@ def evaluate_one_article_forgiving(gold_truth, prediction):
                 pred.remove(element)
 
     if gold:
-        fn += len(gold)
+        for i in range(len(gold)):
+            fn += 1
+            fns.append(gold[0]['text'])
+            gold.pop(0)
+
     elif pred:
-        fp += len(pred)
+        for i in range(len(pred)):
+            fp += 1
+            fps.append(pred[0]['text'])
+            pred.pop(0)
 
     return tp, fp, fn, fns, fps, tps
