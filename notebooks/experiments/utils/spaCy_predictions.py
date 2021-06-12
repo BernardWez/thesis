@@ -11,12 +11,12 @@ def make_predictions(ner_pipeline, data):
         # Do something with the doc here
 
         pred = {'entities': [{'text': ent.text,
-                              'start_pos': len(doc[0:ent.end].text) - len(doc[ent.start]),
-                              'end_pos': len(doc[0:ent.end].text)} for ent in doc.ents if
+                              'start_pos': 1 + len(doc[:ent.start].text),
+                              'end_pos': len(ent.text) + 1 + len(doc[:ent.start].text)} for ent in doc.ents if
                              ent.label_ == 'LOC' or ent.label_ == 'GPE']}
 
         if pred:
-            pred['text'] = doc
+            pred['text'] = doc.text
 
             predictions.append(pred)
 
