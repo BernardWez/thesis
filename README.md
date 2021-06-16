@@ -3,7 +3,7 @@
 ## Repository Structure
 
     .
-    ├── data                         # Datasets files
-    ├── notebooks                    # Notebooks & code files
-    ├── results                      # Result tables
+    ├── data                         # contains all dataset files
+    ├── notebooks                    # contains all notebooks & code files
+    ├── results                      # contains result tables
     └── README.md
