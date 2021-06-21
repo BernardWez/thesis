@@ -3,6 +3,7 @@
 **/*.pkl
 
 test-ner/*
+test2-ner/*
 models/*
 
 utils/__pycache__/*

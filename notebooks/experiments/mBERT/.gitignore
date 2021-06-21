@@ -1,0 +1,4 @@
+# exclue all 'fold' folders
+
+fold*/
+
