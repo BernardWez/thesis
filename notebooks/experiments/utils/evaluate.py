@@ -17,43 +17,65 @@ def calc_accuracy(tp, total_annotations):
     return tp / total_annotations
 
 
-def evaluate(gold_truth_labels, predictions, model_name, dataset, filtered):
+def evaluate(gold_truth_labels, predictions, model_name, dataset, filtered, cv=False):
 
     fps_strict, fns_strict, tps_strict = run_evaluation(
-        gold_truth_labels, predictions, 'strict', model_name, dataset, filtered)
+        gold_truth_labels, predictions, 'strict', model_name, dataset, filtered, cv)
 
     fps_forgiving, fns_forgiving, tps_forgiving = run_evaluation(
-        gold_truth_labels, predictions, 'forgiving', model_name, dataset, filtered)
+        gold_truth_labels, predictions, 'forgiving', model_name, dataset, filtered, cv)
 
     return ((fps_strict, fns_strict, tps_strict), (fps_forgiving, fns_forgiving, tps_forgiving))
 
 
 def store_results(model_name, dataset, mode, precision,
-                  recall, f_score, accuracy, filtered):
+                  recall, f_score, accuracy, filtered, cv):
 
     # Load results dataframe
-    results = pd.read_pickle('../../../results/results.pkl')
+    if cv:
+        results = pd.read_pickle('../../../results/cv-results.pkl')
 
-    # Add results to dataframe
-    results = results.append({'model': model_name,
-                              'dataset': dataset,
-                              'mode': mode,
-                              'filtered': filtered,
-                              'precision': precision,
-                              'recall': recall,
-                              'f1': f_score,
-                              'acc': accuracy}, ignore_index=True)
+        # Add results to dataframe
+        results = results.append({'model': model_name,
+                                  'dataset': dataset,
+                                  'mode': mode,
+                                  'filtered': filtered,
+                                  'fold': cv,
+                                  'precision': precision,
+                                  'recall': recall,
+                                  'f1': f_score,
+                                  'acc': accuracy}, ignore_index=True)
 
-    # Remove duplicates
-    results = results.drop_duplicates(
-        ['model', 'dataset', 'mode', 'filtered'], keep='last')
+        # Remove duplicates
+        results = results.drop_duplicates(
+            ['model', 'dataset', 'mode', 'filtered', 'fold'], keep='last')
 
-    # Write back to disk
-    results.to_pickle("../../../results/results.pkl")
+        # Write back to disk
+        results.to_pickle("../../../results/cv-results.pkl")
+
+    else:
+        results = pd.read_pickle('../../../results/results.pkl')
+
+        # Add results to dataframe
+        results = results.append({'model': model_name,
+                                  'dataset': dataset,
+                                  'mode': mode,
+                                  'filtered': filtered,
+                                  'precision': precision,
+                                  'recall': recall,
+                                  'f1': f_score,
+                                  'acc': accuracy}, ignore_index=True)
+
+        # Remove duplicates
+        results = results.drop_duplicates(
+            ['model', 'dataset', 'mode', 'filtered'], keep='last')
+
+        # Write back to disk
+        results.to_pickle("../../../results/results.pkl")
 
 
 def run_evaluation(gold_truth_labels, predictions, mode,
-                   model_name, dataset, filtered):
+                   model_name, dataset, filtered, cv):
     # Counts of true positives, false positives & false negatives
     tp, fp, fn = 0, 0, 0
 
@@ -85,11 +107,15 @@ def run_evaluation(gold_truth_labels, predictions, mode,
                             for entry in gold_truth_labels])
     accuracy = calc_accuracy(tp, total_annotations)
 
-    overwrite = input('Do you want to overwrite results? (y/n)')
+    if cv:
+        # Auto overwrite results for cross validation
+        overwrite = 'y'
+    else:
+        overwrite = input('Do you want to overwrite results? (y/n)')
 
     if overwrite == 'y':
         store_results(model_name, dataset, mode, precision,
-                      recall, f_score, accuracy, filtered)
+                      recall, f_score, accuracy, filtered, cv)
     else:
         print('Results not saved...')
 
