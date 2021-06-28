@@ -7,14 +7,21 @@
     |   ├ CoNLL-2002                    
     |   ├ CoNLL-2003                  
     |   ├ DutchPolicyDocs
-    |   |   ├── DutchPolicyDocs.json         # final annotated dataset
-    |   |   ├── visie-documents              # intermediate datasets
-    |   |   ├ annotated                             # contains extracted paragraphs with annotations
-    |   |   ├ manual-extraction                     # contains extracted paragraphs from PDF's
-    |   |   └ pdf                                   # contains scraped PDF policy documents
+    |   |   ├── DutchPolicyDocs.json         # contains final annotated dataset
+    |   |   ├── scraping                     # contains notebooks to scrape policy documents
+    |   |   ├── visie-documents              # contains intermediate datasets
+    |   |   ├ annotated                             # extracted paragraphs with annotations
+    |   |   ├ manual-extraction                     # extracted paragraphs from PDF's
+    |   |   └ pdf                                   # scraped PDF policy documents
     |   ├ GeoWebNews                     
     |   ├ LGL             
     |   └ TR-News                           
-    ├── notebooks                       # contains all notebooks & code files
+    ├── experiments                     # contains all model notebooks & code files
+    |   ├ LaBSE                             
+    |   ├ XLM-RoBERTa                 
+    |   ├ flair
+    |   ├ mBERT             
+    |   ├ spaCy
+    |   └ utils                             # contains all utility functions
     ├── results                         # contains result tables
     └── README.md
