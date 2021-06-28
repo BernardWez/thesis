@@ -1,3 +1,4 @@
+### Repository Structure
     .
     ├── annotated           # contains extracted paragraphs with annotations
     ├── manual-extraction   # contains extracted paragraphs from PDF's
