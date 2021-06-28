@@ -1,5 +1,5 @@
 
-### 
+### Directory Structure
 
     .
     ├── DutchPolicyDocs.json         # final annotated dataset
