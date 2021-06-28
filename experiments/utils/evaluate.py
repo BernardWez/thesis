@@ -33,7 +33,7 @@ def store_results(model_name, dataset, mode, precision,
 
     # Load results dataframe
     if cv:
-        results = pd.read_pickle('../../../results/cv-results.pkl')
+        results = pd.read_pickle('../../results/cv-results.pkl')
 
         # Add results to dataframe
         results = results.append({'model': model_name,
@@ -51,10 +51,10 @@ def store_results(model_name, dataset, mode, precision,
             ['model', 'dataset', 'mode', 'filtered', 'fold'], keep='last')
 
         # Write back to disk
-        results.to_pickle("../../../results/cv-results.pkl")
+        results.to_pickle("../../results/cv-results.pkl")
 
     else:
-        results = pd.read_pickle('../../../results/results.pkl')
+        results = pd.read_pickle('../../results/results.pkl')
 
         # Add results to dataframe
         results = results.append({'model': model_name,
@@ -71,7 +71,7 @@ def store_results(model_name, dataset, mode, precision,
             ['model', 'dataset', 'mode', 'filtered'], keep='last')
 
         # Write back to disk
-        results.to_pickle("../../../results/results.pkl")
+        results.to_pickle("../../results/results.pkl")
 
 
 def run_evaluation(gold_truth_labels, predictions, mode,

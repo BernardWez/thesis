@@ -10,7 +10,7 @@ from transformers import DataCollatorForTokenClassification
 def cross_validation_mBERT(model, tokenizer, label_list, fold):
 
     # DutchPolicyDocs
-    file_path = '../../../data/DutchPolicyDocs/DutchPolicyDocs.json'
+    file_path = '../../data/DutchPolicyDocs/DutchPolicyDocs.json'
     filtered = False
     dataset = 'DutchPolicyDocs'
 
@@ -38,7 +38,7 @@ def cross_validation_mBERT(model, tokenizer, label_list, fold):
              dataset=dataset, filtered=filtered, cv=fold)
 
     # TR-News
-    file_path = '../../../data/TR-News/TR-News.xml'
+    file_path = '../../data/TR-News/TR-News.xml'
     filtered = False
     dataset = 'TR-News'
 
@@ -66,7 +66,7 @@ def cross_validation_mBERT(model, tokenizer, label_list, fold):
              dataset=dataset, filtered=filtered, cv=fold)
 
     # LGL
-    file_path = '../../../data/LGL/LGL.xml'
+    file_path = '../../data/LGL/LGL.xml'
     filtered = False
     dataset = 'LGL'
 
@@ -94,7 +94,7 @@ def cross_validation_mBERT(model, tokenizer, label_list, fold):
              dataset=dataset, filtered=filtered, cv=fold)
 
     # GeoWebNews
-    file_path = '../../../data/GeoWebNews/GeoWebNews.xml'
+    file_path = '../../data/GeoWebNews/GeoWebNews.xml'
     filtered = True
     dataset = 'GWN'
 
