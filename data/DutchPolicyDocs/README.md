@@ -2,7 +2,6 @@
 ### Directory Structure
 
     .
-
     ├── scraping                     # scraping notebooks
     ├── visie-documents              # intermediate datasets
     |   ├ annotated                     # contains extracted paragraphs with annotations
