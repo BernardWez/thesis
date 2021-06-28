@@ -1,10 +1,5 @@
-# exclude everthing in data folder
 reflection-report
-
-GeoAI2019Geoparser/*
-PretrainedModel/*
-GeoAI2019Geoparser/
 
 .ipynb_checkpoints
 .vscode/settings.json
-feedback-daan.docx
+
