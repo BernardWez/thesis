@@ -3,7 +3,9 @@ from flair.data import Sentence
 
 
 def make_predictions(toponyms_data, tagger):
-
+    """
+    Makes predictions for all the Flair model implementations.
+    """
     predictions = []
 
     for article in tqdm(toponyms_data):

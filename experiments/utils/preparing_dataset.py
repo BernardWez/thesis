@@ -2,6 +2,9 @@ from datasets import Dataset
 
 
 def prepare_dataset(toponyms, tokenizer):
+    """
+    Prepares dataset as a HuggingFace dataset and performs tokenization.
+    """
 
     list_input_data = [i['text'] for i in toponyms]
 

@@ -8,6 +8,9 @@ from transformers import DataCollatorForTokenClassification
 
 
 def cross_validation_mBERT(model, tokenizer, label_list, fold):
+    """
+    Evaluates trained mBERT model during cross validation procedure on all four evaluation corpora and writes the results to cv-results.pkl file
+    """
 
     # DutchPolicyDocs
     file_path = '../../data/DutchPolicyDocs/DutchPolicyDocs.json'

@@ -6,9 +6,13 @@ from process_predictions import process_predictions
 from transformers import Trainer
 from transformers import DataCollatorForTokenClassification
 
-### NOTE: Executed in Google Colab
+# NOTE: Executed in Google Colab
+
 
 def cross_validation_LaBSE(model, tokenizer, label_list, fold):
+    """
+    Evaluates trained LaBSE model on all four evaluation corpora and writes the results to file stored in Google
+    """
 
     # DutchPolicyDocs
     file_path = 'drive/MyDrive/Thesis/data/DutchPolicyDocs.json'

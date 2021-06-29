@@ -6,6 +6,37 @@ import xml.etree.ElementTree as et
 import numpy as np
 
 
+def prepare_data(file_path, filtered, split, word_limit=2000):
+    """
+    Loads and prepares data for making predictions.
+    """
+
+    if 'DutchPolicyDocs' in file_path:
+        # Splitting is not necessary for DPD
+        split = False
+
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+
+    else:
+        root = load_file(file_path)
+
+        data = process_articles(root, filtered, file_path)
+
+    if split:
+
+        data = [split for splits in [split_article(
+            entry, word_limit) for entry in data] for split in splits]
+
+    # Clean white spaces
+    data = [clean_whitespaces(i) for i in data]
+
+    # Align annotations
+    data = [align_annotations(i) for i in data]
+
+    return data
+
+
 def load_file(file_path):
     """
     Loads file and returns all the articles
@@ -64,35 +95,10 @@ def process_articles(root, filtered, file_path):
     return data
 
 
-def prepare_data(file_path, filtered, split, word_limit=2000):
-
-    if 'DutchPolicyDocs' in file_path:
-        # Splitting is not necessary for DPD
-        split = False
-
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-
-    else:
-        root = load_file(file_path)
-
-        data = process_articles(root, filtered, file_path)
-
-    if split:
-
-        data = [split for splits in [split_article(
-            entry, word_limit) for entry in data] for split in splits]
-
-    # Clean white spaces
-    data = [clean_whitespaces(i) for i in data]
-
-    # Align annotations
-    data = [align_annotations(i) for i in data]
-
-    return data
-
-
 def split_article(entry, word_limit):
+    """
+    Splits article in subarticles if necessary due to token limitation
+    """
 
     # Get all punctuation indices
     punc_indices = set([m.start() for m in re.finditer('\.', entry['text'])])
@@ -155,7 +161,9 @@ def split_article(entry, word_limit):
 
 
 def clean_whitespaces(article):
-
+    """
+    Remove white spaces irregularities between original text and reconstructed prediction text.
+    """
     text = article['text'].strip()
     entities = copy.deepcopy(article['entities'])
 
@@ -179,7 +187,9 @@ def clean_whitespaces(article):
 
 
 def align_annotations(article):
-
+    """
+    Ensures the spans pointing to the toponym predictions align with the toponym occurance in the text.
+    """
     text = article['text']
     entities = copy.deepcopy(article['entities'])
 

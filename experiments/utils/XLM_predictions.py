@@ -2,7 +2,9 @@ from tqdm import tqdm
 
 
 def make_predictions(ner_pipeline, articles):
-
+    """
+    Makes predictions for all the pre-trained XLM-R model.
+    """
     # Make the predictions
     predictions = [ner_pipeline(entry['text']) for entry in tqdm(articles)]
 

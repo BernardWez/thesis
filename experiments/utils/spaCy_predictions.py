@@ -2,7 +2,9 @@ from tqdm import tqdm
 
 
 def make_predictions(ner_pipeline, data):
-
+    """
+    Makes predictions for all the spaCy model implementations.
+    """
     predictions = []
 
     texts = [article['text'] for article in data]

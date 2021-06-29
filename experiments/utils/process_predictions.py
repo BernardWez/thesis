@@ -1,4 +1,7 @@
 def process_predictions(predictions, dataset, label_list, tokenizer):
+    """
+    Processes predictions to structure/prepare them for evaluation.
+    """
 
     # Get initial results
     results = convert_predictions(
@@ -16,6 +19,9 @@ def process_predictions(predictions, dataset, label_list, tokenizer):
 
 def convert_predictions(prediction_label_ids, tokenized_input_ids,
                         label_list, tokenizer):
+    """
+    Merges BIO-predictions into toponym predictions (e.g. [(New, B-LOC), (York, I-LOC)] --> [New York])
+    """
 
     prediction_labels = [[label_list[p] for t, p in zip(
         tokens, pred) if t != 101 and t != 102] for tokens, pred in zip(tokenized_input_ids, prediction_label_ids)]
@@ -76,7 +82,9 @@ def process_pred_results(pred_results, original_text_inputs):
 
 
 def align_pred_and_original_text(pred_result, original_text):
-
+    """
+    Make sure predictions and toponym spans align
+    """
     pred_text = pred_result['text']
 
     idx = 0

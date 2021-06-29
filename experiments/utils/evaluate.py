@@ -1,24 +1,14 @@
 import pandas as pd
 
 
-def calc_precision(tp, fp):
-    return tp/(tp + fp)
-
-
-def calc_recall(tp, fn):
-    return tp/(tp + fn)
-
-
-def calc_fscore(precision, recall):
-    return 2 * (precision * recall) / (precision + recall)
-
-
-def calc_accuracy(tp, total_annotations):
-    return tp / total_annotations
-
-
 def evaluate(gold_truth_labels, predictions, model_name, dataset, filtered, cv=False):
+    """
+    Evaluation procedure that compares predictions to gold truth annotations. Happens for both exact and inexact matching.
 
+    Side-effect: Writes the results (i.e. precision, recall, f1, accuracy) scores to results.pkl file
+
+    Returns: The FP, FN, TP classifications made by the model.
+    """
     fps_strict, fns_strict, tps_strict = run_evaluation(
         gold_truth_labels, predictions, 'strict', model_name, dataset, filtered, cv)
 
@@ -30,6 +20,9 @@ def evaluate(gold_truth_labels, predictions, model_name, dataset, filtered, cv=F
 
 def store_results(model_name, dataset, mode, precision,
                   recall, f_score, accuracy, filtered, cv):
+    """
+    Stores the results from evaluation in results.pkl file
+    """
 
     # Load results dataframe
     if cv:
@@ -255,3 +248,19 @@ def evaluate_one_article_forgiving(gold_truth, prediction):
             pred.pop(0)
 
     return tp, fp, fn, fns, fps, tps
+
+
+def calc_precision(tp, fp):
+    return tp/(tp + fp)
+
+
+def calc_recall(tp, fn):
+    return tp/(tp + fn)
+
+
+def calc_fscore(precision, recall):
+    return 2 * (precision * recall) / (precision + recall)
+
+
+def calc_accuracy(tp, total_annotations):
+    return tp / total_annotations
